@@ -56,8 +56,11 @@ def escolhas(contas,conta):
             print("Deposito feito com sucesso")
         elif escolha == "3":
             saque = int(input("Quanto deseja sacar? "))
-            contas[conta]['saldo'] -= saque
-            print("Saque feito com sucesso")
+            if saque > contas[conta]['saldo']:
+                print("Saldo insuficiente")
+            else:
+                contas[conta]['saldo'] -= saque
+                print("Saque feito com sucesso")
         elif escolha == "4":
             print("Obrigado. Volte sempre!")
             break
