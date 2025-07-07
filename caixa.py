@@ -14,7 +14,7 @@ Encerre a sessão.
 
 def caixa_eletronico():
     conta_usuario = 1235 #input("Digite sua conta de 4 digitos: ")
-    senha_usuario = 1333 #input("Digite sua senha de 4 digitos: ")
+    senha_usuario = "1235" #input("Digite sua senha de 4 digitos: ")
 
     contas = {
         1234: {"usuário": "joão","senha":"1234","saldo": 1000.00},
@@ -27,7 +27,11 @@ def caixa_eletronico():
         for conta in contas:
             # verificação se a conta do usuário é a mesma conta
             if conta_usuario == conta:
-                print(contas[conta]['senha'])
+                # verifcação senha do usuário igual a senha da conta
+                if contas[conta]['senha'] == senha_usuario:
+                    print("Entrou na conta com sucesso!")
+                else:
+                    print("Senha errada.")
     else:
         print("Essa conta não existe")
 
