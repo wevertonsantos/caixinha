@@ -28,11 +28,12 @@ def caixa_eletronico():
             if conta_usuario == conta:
                 # verificação senha do usuário igual a senha da conta
                 if contas[conta]['senha'] == senha_usuario:
-                    return True
+                    print("Entrou na conta com sucesso.")
+                    escolhas(contas,conta)
                 else:
-                    return False
+                    print("Senha incorreta.")
     else:
-        print("Essa conta não existe")
+        print("Essa conta não existe.")
         
 def verificao_conta(conta_usuario,contas):
     # verificação se a conta do usuário está em contas
@@ -40,5 +41,24 @@ def verificao_conta(conta_usuario,contas):
         return True
     else:
         return False
+
+def escolhas(contas,conta,escolha):
+    while True:
+        escolha = 1 #input("1 - Consultar saldo. 2 - Depositar. 3 - Sacar. 4 - Sair")
+        if escolha == 1:
+            print(f"Seu saldo é: R$ {contas[conta]['saldo']}")
+        elif escolha == 2:
+            deposito = 100 #input("Quanto deseja depositar? ")
+            contas[conta]['saldo'] += deposito
+            print("Deposito feito com sucesso")
+        elif escolha == 3:
+            saque = 100 #input("Quanto deseja sacar? ")
+            contas[conta]['saldo'] -= saque
+            print("Saque feito com sucesso")
+        elif escolha == 4:
+            print("Obrigado. Volte sempre!")
+            break
+        else:
+            print("Essa escolha não existe. Tente novamente!")
 
 caixa_eletronico()
