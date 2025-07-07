@@ -13,37 +13,40 @@ Encerre a sessão.
 '''
 
 def caixa_eletronico():
-    contas = {
+    banco_de_dados = {
         1234: {"usuário": "joão","senha":"1234","saldo": 1000.00},
         1235: {"usuário": "joão","senha":"1235","saldo": 1000.00}
     }
 
+    tentativas = 3
+
     try:
         conta_usuario = int(input("Digite sua conta de 4 digitos: "))
-        if verificao_conta(conta_usuario,contas):
+        if verificao_conta(conta_usuario,banco_de_dados):
             # para cada conta
-            for conta in contas:
+            for numero_conta in banco_de_dados:
                 # verificação se a conta do usuário é a mesma conta
-                if conta_usuario == conta:
-                    senha_usuario = input("Digite sua senha de 4 digitos: ").strip()
-                    # verificação senha do usuário igual a senha da conta
-                    if contas[conta]['senha'] == senha_usuario:
-                        print("Entrou na conta com sucesso.")
-                        escolhas(contas,conta)
-                    else:
-                        print("Senha incorreta.")
+                if conta_usuario == numero_conta:
+                    while tentativas > 0:
+                        senha_usuario = input("Digite sua senha de 4 digitos: ").strip()
+                        # verificação senha do usuário igual a senha da conta
+                        if banco_de_dados[numero_conta]['senha'] == senha_usuario:
+                            print("Entrou na conta com sucesso.")
+                            escolhas(banco_de_dados,numero_conta)
+                            return
+                        else:
+                            tentativas -= 1
+                            print(f"Senha incorreta. Tentativas restantes: {tentativas}")
+                    print("Conta bloqueada. Tente mais tarde.")
         else:
             print("Essa conta não existe.")
     except ValueError:
         print("Só é permitido digitos")
     
         
-def verificao_conta (conta_usuario,contas):
+def verificao_conta (conta_usuario,banco_de_dados):
     # verificação se a conta do usuário está em contas
-    if conta_usuario in contas:
-        return True
-    else:
-        return False
+    return conta_usuario in banco_de_dados
 
 def escolhas(contas,conta):
     while True:
@@ -51,16 +54,22 @@ def escolhas(contas,conta):
         if escolha == "1":
             print(f"Seu saldo é: R$ {contas[conta]['saldo']}")
         elif escolha == "2":
-            deposito = int(input("Quanto deseja depositar? "))
-            contas[conta]['saldo'] += deposito
-            print("Deposito feito com sucesso")
+            try:
+                deposito = float(input("Quanto deseja depositar? "))
+                contas[conta]['saldo'] += deposito
+                print("Deposito feito com sucesso")
+            except ValueError:
+                print("Valor inválido")
         elif escolha == "3":
-            saque = int(input("Quanto deseja sacar? "))
-            if saque > contas[conta]['saldo']:
-                print("Saldo insuficiente")
-            else:
-                contas[conta]['saldo'] -= saque
-                print("Saque feito com sucesso")
+            try:
+                saque = float(input("Quanto deseja sacar? "))
+                if saque > contas[conta]['saldo']:
+                    print("Saldo insuficiente")
+                else:
+                    contas[conta]['saldo'] -= saque
+                    print("Saque feito com sucesso")
+            except ValueError:
+                print("Valor inválido")
         elif escolha == "4":
             print("Obrigado. Volte sempre!")
             break
