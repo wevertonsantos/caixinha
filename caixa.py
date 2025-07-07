@@ -19,7 +19,7 @@ def caixa_eletronico():
                         # verificação senha do usuário igual a senha da conta
                         if banco_de_dados[numero_conta]['senha'] == senha_usuario:
                             print("Entrou na conta com sucesso.")
-                            escolhas(banco_de_dados,numero_conta)
+                            menu_principal(banco_de_dados,numero_conta)
                             return
                         else:
                             tentativas -= 1
@@ -35,7 +35,7 @@ def verificao_conta (conta_usuario,banco_de_dados):
     # verificação se a conta do usuário está em contas
     return conta_usuario in banco_de_dados
 
-def escolhas(contas,conta):
+def menu_principal(contas,conta):
     while True:
         escolha = input("1 - Consultar saldo.\n2 - Depositar.\n3 - Sacar.\n4 - Sair\nOpção: ").strip()
         if escolha == "1":
