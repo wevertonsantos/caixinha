@@ -1,17 +1,3 @@
-'''
-Um programa que simula o funcionamento básico de um caixa eletrônico, permitindo que o usuário:
-
-Acesse uma conta com senha (opcional no começo);
-
-Veja o saldo atual;
-
-Faça depósitos;
-
-Realize saques;
-
-Encerre a sessão.
-'''
-
 def caixa_eletronico():
     banco_de_dados = {
         1234: {"usuário": "joão","senha":"1234","saldo": 1000.00},
@@ -27,6 +13,7 @@ def caixa_eletronico():
             for numero_conta in banco_de_dados:
                 # verificação se a conta do usuário é a mesma conta
                 if conta_usuario == numero_conta:
+                    # verificando números de tentativas
                     while tentativas > 0:
                         senha_usuario = input("Digite sua senha de 4 digitos: ").strip()
                         # verificação senha do usuário igual a senha da conta
